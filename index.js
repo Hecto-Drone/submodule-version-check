@@ -1,4 +1,3 @@
-const github = require("@actions/github");
 const core = require("@actions/core");
 const exec = require("@actions/exec");
 const stream = require("stream");
