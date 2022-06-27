@@ -1,0 +1,19 @@
+name: 'Submodule version check'
+description: 'Fail action is version does not match'
+inputs:
+  submodule-path:
+    description: 'Path of submodule'
+    required: true
+  version:
+    description: 'Required version ref'
+    required: true
+  github-token:
+    description: "GitHub Token used to authenticate against a repository for Git context"
+    default: ${{ github.token }}
+    required: false
+runs:
+  using: 'node12'
+  main: 'index.js'
+    
+
+    
