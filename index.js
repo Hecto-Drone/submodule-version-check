@@ -10,7 +10,9 @@ async function execToString(command, args, options) {
     const outStream = new stream.PassThrough();
     outStream.on("data", c => output += c.toString());
 
-    const exitCode = await exec.exec(command, args, options);
+    const exitCode = await exec.exec(command, args, Object.assign(options, {
+        outStream
+    }));
 
     if (exitCode > 0) {
         throw new Error(output);
@@ -22,7 +24,6 @@ async function execToString(command, args, options) {
 async function getVersion(ref) {
     const submoduleVersion = await execToString("git", ["rev-parse", ref], {
         cwd: submodulePath,
-        outStream,
     });
 
     return submoduleVersion;
