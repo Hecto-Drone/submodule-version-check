@@ -34,7 +34,7 @@ async function run() {
     const remoteVersion = await getVersion(requiredVersion);
 
     if (localVersion != remoteVersion) {
-        throw new Error(`Submodule "${submodulePath}" version mismatch: local(${localVersion}) remote(${remoteVersion})`);
+        throw new Error(`Submodule "${submodulePath}" version mismatch: local(${localVersion.substring(0,7)}) remote(${remoteVersion.substring(0,7)})`);
     }
 }
 
