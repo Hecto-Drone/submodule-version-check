@@ -1,0 +1,4 @@
+- uses: hecto-drone/submodule-version-check@v1
+  with:
+    submodule-path: path-to-submodule
+    version: origin/master
