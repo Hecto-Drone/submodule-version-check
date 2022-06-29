@@ -1,17 +1,17 @@
 const core = require("@actions/core");
 const exec = require("@actions/exec");
-const stream = require("stream");
 
 const submodulePath = core.getInput("submodule-path");
 const requiredVersion = core.getInput("version");
 
 async function execToString(command, args, options) {
     let output = "";
-    const outStream = new stream.PassThrough();
-    outStream.on("data", c => output += c.toString());
-
+    
     const exitCode = await exec.exec(command, args, Object.assign(options, {
-        outStream
+        listeners: {
+            stdout: c => output += c.toString(),
+            stderr: c => output += c.toString(),
+        },
     }));
 
     if (exitCode > 0) {
