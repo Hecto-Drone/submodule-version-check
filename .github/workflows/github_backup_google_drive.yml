@@ -1,0 +1,26 @@
+name: Local workflow to back up GitHub repo to Google Drive
+description: Back up GitHub repo to Google Drive using the reusable workflow "reusable_backup_google_workflow.yaml"
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+            - development
+            - staging
+    pull_request:
+        branches:
+            - main
+            - development
+            - staging   
+
+jobs: 
+    back-up: 
+        uses: hecto-drone/Shared-Workflows/.github/workflows/reusable_backup_google_workflow.yaml@main
+        with:
+            repository_name: ${{ github.repository }}
+        secrets:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CLOUD_API_KEY }}
+            FOLDER_ID: ${{ secrets.FOLDER_ID_GITHUB_BACKUP }}
+    
